@@ -2,9 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/light_gray"
+    android:background="@color/lightGray"
     android:layout_height="match_parent"
-    tools:context=".FoodJokeFragment">
+    tools:context=".ui.fragements.foodjoke.FoodJokeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
