@@ -1,4 +1,4 @@
-package com.adivid.recipesappstevdza
+package com.adivid.recipesappstevdza.viewmodels
 
 import android.app.Application
 import android.content.Context

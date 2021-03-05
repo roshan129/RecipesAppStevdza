@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.adivid.recipesappstevdza.R
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FoodJokeFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
