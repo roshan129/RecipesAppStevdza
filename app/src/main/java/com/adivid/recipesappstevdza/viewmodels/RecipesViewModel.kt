@@ -2,7 +2,6 @@ package com.adivid.recipesappstevdza.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.adivid.recipesappstevdza.util.Constants
 import com.adivid.recipesappstevdza.util.Constants.Companion.API_KEY
 import com.adivid.recipesappstevdza.util.Constants.Companion.QUERY_ADD_RECIPE_INFORMATION
 import com.adivid.recipesappstevdza.util.Constants.Companion.QUERY_API_KEY
