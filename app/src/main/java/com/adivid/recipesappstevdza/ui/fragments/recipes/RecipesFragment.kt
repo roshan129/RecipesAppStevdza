@@ -1,4 +1,4 @@
-package com.adivid.recipesappstevdza.ui.fragements.recipes
+package com.adivid.recipesappstevdza.ui.fragments.recipes
 
 import android.os.Bundle
 import android.util.Log
@@ -9,12 +9,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.adivid.recipesappstevdza.viewmodels.MainViewModel
 import com.adivid.recipesappstevdza.R
+import com.adivid.recipesappstevdza.viewmodels.MainViewModel
 import com.adivid.recipesappstevdza.adapters.RecipesAdapter
 import com.adivid.recipesappstevdza.databinding.FragmentRecipesBinding
-import com.adivid.recipesappstevdza.util.Constants.Companion.API_KEY
 import com.adivid.recipesappstevdza.util.NetworkResult
 import com.adivid.recipesappstevdza.util.observeOnce
 import com.adivid.recipesappstevdza.viewmodels.RecipesViewModel
@@ -47,6 +47,12 @@ class RecipesFragment : Fragment() {
         binding.mainViewModel = mainViewModel
         setUpRecyclerView()
         readDatabase()
+
+        binding.recipesFab.setOnClickListener {
+            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+        }
+
+
         return binding.root
     }
 
