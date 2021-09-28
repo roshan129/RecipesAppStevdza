@@ -16,11 +16,13 @@ import com.adivid.recipesappstevdza.R
 import com.adivid.recipesappstevdza.viewmodels.MainViewModel
 import com.adivid.recipesappstevdza.adapters.RecipesAdapter
 import com.adivid.recipesappstevdza.databinding.FragmentRecipesBinding
+import com.adivid.recipesappstevdza.util.NetworkListener
 import com.adivid.recipesappstevdza.util.NetworkResult
 import com.adivid.recipesappstevdza.util.observeOnce
 import com.adivid.recipesappstevdza.viewmodels.RecipesViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_recipes.view.*
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -33,6 +35,8 @@ class RecipesFragment : Fragment() {
     private lateinit var mainViewModel: MainViewModel
     private lateinit var recipesVieModel: RecipesViewModel
     private val mAdapter by lazy { RecipesAdapter() }
+
+    private lateinit var networkListener: NetworkListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +55,23 @@ class RecipesFragment : Fragment() {
         setUpRecyclerView()
         readDatabase()
 
+        lifecycleScope.launch {
+            networkListener = NetworkListener()
+            networkListener.checkNetworkAvailability(requireContext())
+                .collect { status->
+                    Log.d("NetworkListner", status.toString())
+                    recipesVieModel.networkStatus = status
+                    recipesVieModel.showNetworkStatus()
+                }
+        }
+
         binding.recipesFab.setOnClickListener {
-            findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+            if(recipesVieModel.networkStatus){
+                findNavController().navigate(R.id.action_recipesFragment_to_recipesBottomSheet)
+            }else{
+                recipesVieModel.showNetworkStatus()
+            }
+
         }
 
 
