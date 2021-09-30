@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -47,13 +48,16 @@ class RecipesFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         _binding = FragmentRecipesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         binding.mainViewModel = mainViewModel
         setUpRecyclerView()
-        readDatabase()
+
+        recipesVieModel.readBackOnline.observe(viewLifecycleOwner, {
+            recipesVieModel.backOnline = it
+        })
 
         lifecycleScope.launch {
             networkListener = NetworkListener()
@@ -62,6 +66,8 @@ class RecipesFragment : Fragment() {
                     Log.d("NetworkListner", status.toString())
                     recipesVieModel.networkStatus = status
                     recipesVieModel.showNetworkStatus()
+                    readDatabase()
+
                 }
         }
 
